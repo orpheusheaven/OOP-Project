@@ -54,13 +54,28 @@ public class GameController {
     private TableColumn<Game, String> tGamePublisher;
 
     @FXML
+    private TextField filterGenre;
+
+    @FXML
     private TableColumn<Game, Integer> tGameYear;
 
     @FXML
     private TextField filterGameName;
 
     @FXML
+    private TextField filterDev;
+
+    @FXML
+    private TextField filterPublisher;
+
+    @FXML
+    private TextField filterYear;
+
+    @FXML
     private Button btnFilter;
+
+    // Переменная для хранения всех игр
+    private ObservableList<GameFunctions> allGames = FXCollections.observableArrayList();
 
     @FXML
     private void addGame() {
@@ -82,7 +97,6 @@ public class GameController {
         // и так далее для остальных полей
         outputArea.setText("Игра добавлена: " + title); // Простой пример вывода
     }
-
 
     @FXML
     public void checkConnection() {
@@ -117,13 +131,14 @@ public class GameController {
                 games.add(game);
                 gameList.add(game);
             }
+
+            allGames.addAll(gameList);
+
             tGameList.setItems(gameList);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-
     }
 
     @FXML
@@ -133,7 +148,6 @@ public class GameController {
 
 
     @FXML
-    private TextField filterGenre;
     public void filterList() {
         ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
         outputArea.setText("СПИСОК ИГР: ");
@@ -141,40 +155,87 @@ public class GameController {
         Connection conn = db.connect_to_db("postgres", "god1sdead");
         List<Game> games = new ArrayList<>();
 
-        String searchGenre = filterGenre.getText();
+        try {
+            String searchGenre = filterGenre.getText();
+            String searchGameName = filterGameName.getText();
+            String searchYear = filterYear.getText();
+            String searchDev = filterDev.getText();
+            String searchPublisher = filterPublisher.getText();
 
-        String sql = "SELECT * FROM games WHERE genre = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, searchGenre);
-            ResultSet rs = pstmt.executeQuery();
+            String sql = "SELECT * FROM games WHERE 1 = 1";
 
-            while (rs.next()) {
-                Game game = new Game(
-                        rs.getString("title"),
-                        rs.getString("developer"),
-                        rs.getString("publisher"),
-                        rs.getInt("release_date"),
-                        rs.getString("genre"));
-                game.setId(rs.getInt("id"));
-
-                tGameName.setCellValueFactory(new PropertyValueFactory<Game, String>("title"));
-                tGameID.setCellValueFactory(new PropertyValueFactory<Game, Integer>("id"));
-                tGameDeveloper.setCellValueFactory(new PropertyValueFactory<Game, String>("developer"));
-                tGameGenre.setCellValueFactory(new PropertyValueFactory<Game, String>("genre"));
-                tGamePublisher.setCellValueFactory(new PropertyValueFactory<Game, String>("publisher"));
-                tGameYear.setCellValueFactory(new PropertyValueFactory<Game, Integer>("releaseYear"));
-
-                outputArea.setText(outputArea.getText() + "\n " + game.getId() + ". " + game.getTitle());
-                games.add(game);
-                gameList.add(game);
+            if (!searchGenre.isEmpty()) {
+                sql += " AND genre = ?";
             }
-            tGameList.setItems(gameList);
+            if (!searchGameName.isEmpty()) {
+                sql += " AND title LIKE ?";
+                searchGameName = "%" + searchGameName + "%";
+            }
+            if (!searchYear.isEmpty()) {
+                sql += " AND release_date = ?";
+            }
+            if (!searchDev.isEmpty()) {
+                sql += " AND developer LIKE ?";
+                searchDev = "%" + searchDev + "%";
+            }
+            if (!searchPublisher.isEmpty()) {
+                sql += " AND publisher LIKE ?";
+                searchPublisher = "%" + searchPublisher + "%";
+            }
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                int parameterIndex = 1;
+                if (!searchGenre.isEmpty()) {
+                    pstmt.setString(parameterIndex++, searchGenre);
+                }
+                if (!searchGameName.isEmpty()) {
+                    pstmt.setString(parameterIndex++, searchGameName);
+                }
+                if (!searchYear.isEmpty()) {
+                    pstmt.setInt(parameterIndex++, Integer.parseInt(searchYear));
+                }
+                if (!searchDev.isEmpty()) {
+                    pstmt.setString(parameterIndex++, searchDev);
+                }
+                if (!searchPublisher.isEmpty()) {
+                    pstmt.setString(parameterIndex++, searchPublisher);
+                }
+
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    Game game = new Game(
+                            rs.getString("title"),
+                            rs.getString("developer"),
+                            rs.getString("publisher"),
+                            rs.getInt("release_date"),
+                            rs.getString("genre"));
+                    game.setId(rs.getInt("id"));
+
+                    tGameName.setCellValueFactory(new PropertyValueFactory<Game, String>("title"));
+                    tGameID.setCellValueFactory(new PropertyValueFactory<Game, Integer>("id"));
+                    tGameDeveloper.setCellValueFactory(new PropertyValueFactory<Game, String>("developer"));
+                    tGameGenre.setCellValueFactory(new PropertyValueFactory<Game, String>("genre"));
+                    tGamePublisher.setCellValueFactory(new PropertyValueFactory<Game, String>("publisher"));
+                    tGameYear.setCellValueFactory(new PropertyValueFactory<Game, Integer>("releaseYear"));
+
+                    outputArea.setText(outputArea.getText() + "\n " + game.getId() + ". " + game.getTitle());
+                    games.add(game);
+                    gameList.add(game);
+                }
+                tGameList.setItems(gameList);
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+
+            if (gameList.isEmpty()) {
+                tGameList.setItems(allGames);
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Неверный формат года");
         }
-
-
     }
 }
-

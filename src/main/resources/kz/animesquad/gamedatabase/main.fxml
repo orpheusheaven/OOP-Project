@@ -49,9 +49,9 @@
          </Label>
          <TextField fx:id="filterGameName" layoutX="96.0" layoutY="10.0" prefWidth="97.0" promptText="Name" />
          <TextField fx:id="filterGenre" layoutX="209.0" layoutY="10.0" prefWidth="97.0" promptText="Genre" />
-         <TextField layoutX="322.0" layoutY="10.0" prefWidth="97.0" promptText="Year" />
-         <TextField layoutX="436.0" layoutY="10.0" prefWidth="97.0" promptText="Developer" />
-         <TextField layoutX="550.0" layoutY="10.0" prefWidth="97.0" promptText="Publisher" />
+         <TextField fx:id="filterYear" layoutX="322.0" layoutY="10.0" prefWidth="97.0" promptText="Year" />
+         <TextField fx:id="filterDev" layoutX="436.0" layoutY="10.0" prefWidth="97.0" promptText="Developer" />
+         <TextField fx:id="filterPublisher" layoutX="550.0" layoutY="10.0" prefWidth="97.0" promptText="Publisher" />
          <Button fx:id="btnFilter" layoutX="-6.0" layoutY="49.0" onAction="#filterList" text="Отфильтровать" />
       </children>
    </AnchorPane>
