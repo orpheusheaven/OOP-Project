@@ -16,6 +16,8 @@ public class MainApp extends Application {
         primaryStage.setTitle("Игровая База Данных");
         primaryStage.setScene(new Scene(root, 812, 621));
         primaryStage.show();
+        // ohello
+
     }
 
     public static void main(String[] args) {
