@@ -81,8 +81,6 @@ public class gameAddController {
             }
         } catch (SQLException e) {
             System.out.println("Ошибка при выполнении запроса: " + e.getMessage());
-        } finally {
-            db.closeConnection(conn);
         }
     }
 

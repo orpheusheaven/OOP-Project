@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
@@ -37,7 +40,7 @@ public class GameController {
     private TextArea outputArea;
 
     @FXML
-    private TableView<Game> tGameList;
+    private TableView<GameFunctions> tGameList;
     @FXML
     private TableColumn<Game, String> tGameDeveloper;
 
@@ -74,18 +77,44 @@ public class GameController {
     @FXML
     private Button btnFilter;
 
-    // Переменная для хранения всех игр
-    private ObservableList<Game> allGames = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane filterAnchorPane;
+    @FXML
+    private void toggleFilters() {
+        if (stage != null) {
+            filterAnchorPane.setVisible(!filterAnchorPane.isVisible());
+
+            if (filterAnchorPane.isVisible()) {
+                stage.setWidth(860);
+                stage.setHeight(621);
+            } else {
+                stage.setWidth(mainVBox.getPrefWidth());
+                stage.setHeight(mainVBox.getPrefHeight());
+            }
+        }
+
+    }
 
     @FXML
-    private void WinAddGame() {
+    private VBox mainVBox;
+
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    private ObservableList<GameFunctions> allGames = FXCollections.observableArrayList();
+
+    @FXML
+    private void addGame() {
         try {
-            // Загрузка FXML для второго окна
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/kz/animesquad/gamedatabase/game-form.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 649, 327); // Здесь указывайте предпочтительные размеры
             Stage stage = new Stage();
-            stage.setTitle("Второе окно");
+            stage.setTitle("Добавить игру");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -100,60 +129,8 @@ public class GameController {
 
     @FXML
     public void checkConnection() {
-        refreshGameList();
-    }
+        ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
 
-    @FXML
-    public void initialize() {
-        tGameName.setCellValueFactory(new PropertyValueFactory<>("title"));
-        tGameID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tGameDeveloper.setCellValueFactory(new PropertyValueFactory<>("developer"));
-        tGameGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        tGamePublisher.setCellValueFactory(new PropertyValueFactory<>("publisher"));
-        tGameYear.setCellValueFactory(new PropertyValueFactory<>("releaseYear"));
-
-        refreshGameList();
-    }
-
-    @FXML
-    public void filterList() {
-        ObservableList<Game> filteredList = filterGames();
-        tGameList.setItems(filteredList);
-    }
-
-    private ObservableList<Game> filterGames() {
-        ObservableList<Game> filteredList = FXCollections.observableArrayList();
-        String searchGenre = filterGenre.getText();
-        String searchGameName = filterGameName.getText();
-        String searchYear = filterYear.getText();
-        String searchDev = filterDev.getText();
-        String searchPublisher = filterPublisher.getText();
-
-        for (Game game : allGames) {
-            boolean addToFilteredList = true;
-
-            if (!searchGenre.isEmpty() && !game.getGenre().equalsIgnoreCase(searchGenre)) {
-                addToFilteredList = false;
-            }
-
-            if (!searchGameName.isEmpty() && !game.getTitle().toLowerCase().contains(searchGameName.toLowerCase())) {
-                addToFilteredList = false;
-            }
-
-
-
-            if (addToFilteredList) {
-                filteredList.add(game);
-            }
-        }
-
-        return filteredList;
-    }
-
-    @FXML
-    public void refreshGameList() {
-        ObservableList<Game> gameList = FXCollections.observableArrayList();
-        outputArea.setText("СПИСОК ИГР: ");
         DbFunctions db = new DbFunctions();
         Connection conn = db.connect_to_db("postgres", "god1sdead");
         List<Game> games = new ArrayList<>();
@@ -172,21 +149,115 @@ public class GameController {
                         rs.getString("genre"));
                 game.setId(rs.getInt("id"));
 
-                outputArea.setText(outputArea.getText() + "\n " + game.getId() + ". " + game.getTitle());
                 games.add(game);
                 gameList.add(game);
+
             }
+
+            allGames.addAll(gameList);
+
+            tGameName.setCellValueFactory(new PropertyValueFactory<Game, String>("title"));
+            tGameID.setCellValueFactory(new PropertyValueFactory<Game, Integer>("id"));
+            tGameDeveloper.setCellValueFactory(new PropertyValueFactory<Game, String>("developer"));
+            tGameGenre.setCellValueFactory(new PropertyValueFactory<Game, String>("genre"));
+            tGamePublisher.setCellValueFactory(new PropertyValueFactory<Game, String>("publisher"));
+            tGameYear.setCellValueFactory(new PropertyValueFactory<Game, Integer>("releaseYear"));
+
             tGameList.setItems(gameList);
-            allGames = gameList;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void addAllGame(Game game) {
-        allGames.add(game);
+    @FXML
+    public void initialize() {
+
     }
 
+    @FXML
+    public void filterList() {
+        ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
 
+        DbFunctions db = new DbFunctions();
+        Connection conn = db.connect_to_db("postgres", "god1sdead");
+        List<Game> games = new ArrayList<>();
+
+        try {
+            String searchGenre = filterGenre.getText();
+            String searchGameName = filterGameName.getText();
+            String searchYear = filterYear.getText();
+            String searchDev = filterDev.getText();
+            String searchPublisher = filterPublisher.getText();
+
+            String sql = "SELECT * FROM games WHERE 1 = 1";
+
+            if (!searchGenre.isEmpty()) {
+                sql += " AND genre = ?";
+            }
+            if (!searchGameName.isEmpty()) {
+                sql += " AND title LIKE ?";
+                searchGameName = "%" + searchGameName + "%";
+            }
+            if (!searchYear.isEmpty()) {
+                sql += " AND release_date = ?";
+            }
+            if (!searchDev.isEmpty()) {
+                sql += " AND developer LIKE ?";
+                searchDev = "%" + searchDev + "%";
+            }
+            if (!searchPublisher.isEmpty()) {
+                sql += " AND publisher LIKE ?";
+                searchPublisher = "%" + searchPublisher + "%";
+            }
+
+            if (!searchGenre.isEmpty() || !searchGameName.isEmpty() || !searchYear.isEmpty() || !searchDev.isEmpty() || !searchPublisher.isEmpty()) {
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    int parameterIndex = 1;
+                    if (!searchGenre.isEmpty()) {
+                        pstmt.setString(parameterIndex++, searchGenre);
+                    }
+                    if (!searchGameName.isEmpty()) {
+                        pstmt.setString(parameterIndex++, searchGameName);
+                    }
+                    if (!searchYear.isEmpty()) {
+                        pstmt.setInt(parameterIndex++, Integer.parseInt(searchYear));
+                    }
+                    if (!searchDev.isEmpty()) {
+                        pstmt.setString(parameterIndex++, searchDev);
+                    }
+                    if (!searchPublisher.isEmpty()) {
+                        pstmt.setString(parameterIndex++, searchPublisher);
+                    }
+
+                    ResultSet rs = pstmt.executeQuery();
+
+                    while (rs.next()) {
+                        Game game = new Game(
+                                rs.getString("title"),
+                                rs.getString("developer"),
+                                rs.getString("publisher"),
+                                rs.getInt("release_date"),
+                                rs.getString("genre"));
+                        game.setId(rs.getInt("id"));
+
+                        games.add(game);
+                        gameList.add(game);
+                    }
+                    tGameList.setItems(gameList);
+
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                tGameList.setItems(allGames);
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Неверный формат года");
+        }
+    }
+
+    public void addAllGame(Game game) {
+    }
 }

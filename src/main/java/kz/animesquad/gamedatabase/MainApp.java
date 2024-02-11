@@ -12,11 +12,14 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/kz/animesquad/gamedatabase/main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/kz/animesquad/gamedatabase/main.fxml"));
+        Parent root = loader.load();
+        GameController controller = loader.getController();
+        controller.setStage(primaryStage);
         primaryStage.setTitle("Игровая База Данных");
-        primaryStage.setScene(new Scene(root, 812, 621));
-        primaryStage.show();
+        primaryStage.setScene(new Scene(root, 840, 360));
 
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
