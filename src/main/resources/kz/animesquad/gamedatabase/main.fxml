@@ -56,5 +56,5 @@
       </children>
    </AnchorPane>
     <TextArea fx:id="outputArea" prefHeight="90.0" prefWidth="780.0" />
-    <Button onAction="#addGame" text="Добавить игру" />
+    <Button onAction="#WinAddGame" text="Добавить игру" />
 </VBox>

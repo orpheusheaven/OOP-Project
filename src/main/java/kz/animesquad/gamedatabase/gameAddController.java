@@ -1,39 +1,91 @@
 package kz.animesquad.gamedatabase;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Optional;
 
-import javafx.scene.control.cell.PropertyValueFactory;
-
-public class gameAddController extends GameController {
-
-
-    @FXML
-    private Button btnYes;
+public class gameAddController {
 
     @FXML
-    private Label titleYes;
+    private TextField AddGameDev;
 
     @FXML
-    private TextField fNumber;
-
+    private TextField AddGameGenre;
 
     @FXML
-    void Yes(ActionEvent event) {
-        int x, y;
-        x = 2;
-        y = Integer.parseInt(fNumber.getText());
-        titleYes.setText(String.valueOf(y*y));
+    private TextField AddGameName;
+
+    @FXML
+    private TextField AddGamePublisher;
+
+    @FXML
+    private TextField AddGameYear;
+
+    @FXML
+    private Button btnAddGame;
+
+    @FXML
+    void addGame(ActionEvent event) {
+        String title = AddGameName.getText();
+        String developer = AddGameDev.getText();
+        String publisher = AddGamePublisher.getText();
+        int releaseYear = Integer.parseInt(AddGameYear.getText());
+        String genre = AddGameGenre.getText();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Подтверждение");
+        alert.setHeaderText("Вы уверены, что все данные введены правильно?");
+        alert.setContentText("Игра: " + title + "\nРазработчик: " + developer + "\nИздатель: " + publisher +
+                "\nГод выпуска: " + releaseYear + "\nЖанр: " + genre);
+
+        ButtonType buttonTypeYes = new ButtonType("Да");
+        ButtonType buttonTypeNo = new ButtonType("Нет");
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            addToDatabaseAndList(title, developer, publisher, releaseYear, genre);
+        }
     }
+
+    private void addToDatabaseAndList(String title, String developer, String publisher, int releaseYear, String genre) {
+        DbFunctions db = new DbFunctions();
+        Connection conn = db.connect_to_db("postgres", "god1sdead");
+
+        String sql = "INSERT INTO games (title, developer, publisher, release_date, genre) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, title);
+            pstmt.setString(2, developer);
+            pstmt.setString(3, publisher);
+            pstmt.setInt(4, releaseYear);
+            pstmt.setString(5, genre);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Игра успешно добавлена в базу данных.");
+
+                GameController controller = new GameController();
+                Game game = new Game(title, developer, publisher, releaseYear, genre);
+                controller.addAllGame(game);
+            } else {
+                System.out.println("Ошибка при добавлении игры в базу данных.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Ошибка при выполнении запроса: " + e.getMessage());
+        } finally {
+            db.closeConnection(conn);
+        }
+    }
+
     @FXML
     public void initialize() {
 
