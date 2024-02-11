@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
+import javafx.stage.Stage;
+
 
 public class gameAddController {
 
@@ -54,6 +56,8 @@ public class gameAddController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeYes) {
             addToDatabaseAndList(title, developer, publisher, releaseYear, genre);
+            Stage stage = (Stage) btnAddGame.getScene().getWindow();
+            stage.close();
         }
     }
 
