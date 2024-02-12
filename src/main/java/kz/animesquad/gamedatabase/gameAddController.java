@@ -71,12 +71,29 @@ public class gameAddController {
 
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
+                Alert inf = new Alert(Alert.AlertType.CONFIRMATION);
+                inf.setTitle("Игра успешно добавлено");
+                inf.setHeaderText("Ваша игра была успешно добавлено в базу данных");
+                inf.setContentText("Игра: " + title + "\nРазработчик: " + developer + "\nИздатель: " + publisher +
+                        "\nГод выпуска: " + releaseYear + "\nЖанр: " + genre);
+
+                ButtonType buttonTypeOk = new ButtonType("OK");
+
+                inf.getButtonTypes().setAll(buttonTypeOk);
                 System.out.println("Игра успешно добавлена в базу данных.");
 
                 GameController controller = new GameController();
                 Game game = new Game(title, developer, publisher, releaseYear, genre);
                 controller.addAllGame(game);
             } else {
+                Alert fail = new Alert(Alert.AlertType.CONFIRMATION);
+                fail.setTitle("Ошибка");
+                fail.setHeaderText("Игра не было добавлено в база данных");
+
+                ButtonType buttonTypeOk = new ButtonType("OK");
+
+                fail.getButtonTypes().setAll(buttonTypeOk);
+
                 System.out.println("Ошибка при добавлении игры в базу данных.");
             }
         } catch (SQLException e) {
