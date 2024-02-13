@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="327.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kz.animesquad.gamedatabase.gameAddController">
    <children>
       <Button fx:id="btnAddGame" layoutX="197.0" layoutY="217.0" mnemonicParsing="false" onAction="#addGame" prefHeight="58.0" prefWidth="255.0" text="Добвить игру" wrapText="true" />
-      <Label layoutX="184.0" layoutY="14.0" prefHeight="30.0" prefWidth="281.0" text="Добавлениен игры в список" textAlignment="CENTER">
+      <Label layoutX="184.0" layoutY="14.0" prefHeight="30.0" prefWidth="281.0" text="Добавление игры в список" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

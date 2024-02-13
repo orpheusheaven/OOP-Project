@@ -92,13 +92,13 @@ public class gameAddController {
             } else {
                 Alert fail = new Alert(Alert.AlertType.CONFIRMATION);
                 fail.setTitle("Ошибка");
-                fail.setHeaderText("Игра не было добавлено в база данных");
+                fail.setHeaderText("Игра не была добавлено в база данных");
 
                 ButtonType buttonTypeOk = new ButtonType("OK");
 
                 fail.getButtonTypes().setAll(buttonTypeOk);
 
-                System.out.println("Ошибка при добавлении игры в базу данных.");
+                System.out.println("Ошибка при добавлений игры в базу данных.");
             }
         } catch (SQLException e) {
             System.out.println("Ошибка при выполнении запроса: " + e.getMessage());
