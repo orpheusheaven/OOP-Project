@@ -14,16 +14,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox  fx:id="mainVBox" prefHeight="395" prefWidth="860.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kz.animesquad.gamedatabase.GameController">
+<VBox fx:id="mainVBox" prefHeight="529.0" prefWidth="869.0" spacing="10" stylesheets="@app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kz.animesquad.gamedatabase.GameController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
     <children>
-        <MenuBar blendMode="SRC_ATOP" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="30.0" prefWidth="805.0" scaleShape="false" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuFunctions" blendMode="SRC_ATOP" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="44.0" prefWidth="860.0" scaleShape="false" styleClass="menubar" VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="Функции">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addGame" text="Добавить Игру" />
+                        <MenuItem mnemonicParsing="false" onAction="#addGame" styleClass="m" text="Добавить Игру" />
                         <MenuItem mnemonicParsing="false" text="Удалить Игру" />
                     </items>
                 </Menu>
@@ -52,17 +52,17 @@
                         <TableColumn fx:id="tGamePublisher" prefWidth="168.79998779296875" text="Publisher" />
                     </columns>
                 </TableView>
-                <Label layoutX="232.0" layoutY="14.0" text="ПРОЕКТ &quot;ИГРОВАЯ БАЗА ДАННЫХ&quot;" textAlignment="CENTER">
+                <Label layoutX="271.0" layoutY="14.0" text="ПРОЕКТ &quot;ИГРОВАЯ БАЗА ДАННЫХ&quot;" textAlignment="CENTER">
                     <font>
                         <Font name="Arsenal Bold" size="20.0" />
                     </font>
                 </Label>
-                <Label layoutX="162.0" layoutY="47.0" text="Выполнили: Рамазан Ертай, Токкожаев Ельдар, Бердыгулов Руслан, Кабдулин Асанали" textAlignment="CENTER">
+                <Label layoutX="85.0" layoutY="40.0" text="Выполнили: Рамазан Ертай, Токкожаев Ельдар, Бердыгулов Руслан, Кабдулин Асанали" textAlignment="CENTER">
                     <font>
                         <Font name="Arsenal Regular" size="13.0" />
                     </font>
                 </Label>
-                <Button layoutX="322.0" layoutY="292.0" onAction="#checkConnection" prefHeight="25.0" prefWidth="161.0" text="Обновить список игр" />
+                <Button layoutX="322.0" layoutY="292.0" onAction="#checkConnection" prefHeight="25.0" prefWidth="161.0" text="Обновить список игр" textAlignment="CENTER" />
               <Button layoutX="777.0" layoutY="309.0" onAction="#toggleFilters" prefHeight="25.0" prefWidth="25.0" styleClass="arrow-button">
                   <graphic>
                       <Label text="🠟" />
@@ -72,7 +72,7 @@
         </AnchorPane>
         <AnchorPane fx:id="filterAnchorPane" prefHeight="193.0" prefWidth="805.0" visible="false">
             <children>
-                <Label layoutX="14.0" layoutY="14.0" text="ФИЛЬТРЫ">
+                <Label layoutY="15.0" text="ФИЛЬТРЫ">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -82,35 +82,11 @@
                 <TextField fx:id="filterYear" layoutX="403.0" layoutY="10.0" prefWidth="80.0" promptText="Year" />
                 <TextField fx:id="filterDev" layoutX="490.0" layoutY="10.0" prefWidth="150.0" promptText="Developer" />
                 <TextField fx:id="filterPublisher" layoutX="648.0" layoutY="10.0" prefWidth="150.0" promptText="Publisher" />
-                <Button fx:id="btnFilter" layoutX="322.0" layoutY="47.0" onAction="#filterList" prefHeight="25.0" prefWidth="161.0" text="Отфильтровать" />
+                <Button id="filterButton" fx:id="btnFilter" layoutX="322.0" layoutY="60.0" onAction="#filterList" prefHeight="25.0" prefWidth="161.0" text="Отфильтровать" />
             </children>
             <VBox.margin>
                 <Insets top="20.0" />
             </VBox.margin>
         </AnchorPane>
     </children>
-    <style>
-        .menu-bar {
-        -fx-background-color: #333;
-        -fx-text-fill: white;
-        }
-        .anchor-pane {
-        -fx-background-color: #f4f4f4;
-        -fx-border-color: #ddd;
-        -fx-border-width: 1px;
-        -fx-border-radius: 5px;
-        -fx-background-radius: 5px;
-        }
-        .button {
-        -fx-background-color: #4CAF50;
-        -fx-text-fill: white;
-        -fx-font-weight: bold;
-        -fx-padding: 8px 12px;
-        -fx-border-radius: 3px;
-        -fx-cursor: hand;
-        }
-        .button:hover {
-        -fx-background-color: #45a049;
-        }
-    </style>
 </VBox>

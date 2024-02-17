@@ -11,14 +11,13 @@ import java.sql.Connection;
 public class MainApp extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/kz/animesquad/gamedatabase/main.fxml"));
-        Parent root = loader.load();
-        GameController controller = loader.getController();
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/kz/animesquad/gamedatabase/gamedatabase.fxml"));
+        Parent root = (Parent)loader.load();
+        gameGuiController controller = (gameGuiController)loader.getController();
         controller.setStage(primaryStage);
         primaryStage.setTitle("Игровая База Данных");
-        primaryStage.setScene(new Scene(root, 840, 360));
-
+        primaryStage.setScene(new Scene(root, 1000, 720));
         primaryStage.show();
     }
 

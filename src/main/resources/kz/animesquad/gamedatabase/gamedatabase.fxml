@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="720.0" maxWidth="1000.0" minHeight="720.0" minWidth="1000.0" prefHeight="720.0" prefWidth="1000.0" style="-fx-background-color: #F4F4FC;" stylesheets="@app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kz.animesquad.gamedatabase.gameGuiController">
+   <left>
+      <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="282.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="allGamesButton" mnemonicParsing="false" onAction="#showAllGamesPanel" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Все игры" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="addGameButton" mnemonicParsing="false" onAction="#showAddGamePanel" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Добавить игру" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteGameButton" mnemonicParsing="false" onAction="#showDeleteGamePanel" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Удалить игру" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Выйти" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="allGamesPanel" prefHeight="720.0" prefWidth="718.0" style="-fx-background-color: #F4F4FC;" visible="false">
+               <children>
+                  <VBox prefHeight="720.0" prefWidth="718.0">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="718.0">
+                           <children>
+                              <Button fx:id="filterPanelButton" mnemonicParsing="false" onAction="#showFilterPanel" prefHeight="26.0" prefWidth="121.0" styleClass="classicButton" text="Фильтры">
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="tableDatabase" prefHeight="670.0" prefWidth="718.0" scaleShape="false" style="-fx-background-color: #F4F4FC;">
+                          <columns>
+                            <TableColumn fx:id="tableID" editable="false" prefWidth="31.999998450279236" text="ID" />
+                            <TableColumn fx:id="tableTitle" editable="false" prefWidth="171.20001983642578" text="Название" />
+                              <TableColumn fx:id="tableGenre" editable="false" prefWidth="107.199951171875" text="Жанр" />
+                              <TableColumn fx:id="tableYear" editable="false" prefWidth="75.199951171875" text="Год" />
+                              <TableColumn fx:id="tablePublisher" editable="false" prefWidth="174.39999389648438" text="Издатель" />
+                              <TableColumn fx:id="tableDeveloper" editable="false" prefWidth="164.800048828125" text="Разработчик" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="filterPanel" alignment="CENTER" layoutX="423.0" prefHeight="720.0" prefWidth="294.0" spacing="15.0" style="-fx-background-color: #fff;" visible="false">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="264.0">
+                           <children>
+                              <Label text="Фильтры">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <TextField fx:id="filterGameName" prefHeight="37.0" prefWidth="269.0" promptText="Название" styleClass="margin20">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="filterGenre" prefHeight="37.0" prefWidth="269.0" promptText="Жанр" />
+                        <TextField fx:id="filterYear" prefHeight="37.0" prefWidth="269.0" promptText="Год" />
+                        <TextField fx:id="filterDev" prefHeight="37.0" prefWidth="269.0" promptText="Разработчик" />
+                        <TextField fx:id="filterPublisher" prefHeight="37.0" prefWidth="269.0" promptText="Издатель" />
+                        <Button fx:id="filterListButton" mnemonicParsing="false" onAction="#filterList" prefHeight="26.0" prefWidth="160.0" styleClass="filterButton" text="Отфильтровать" />
+                        <Button fx:id="closeFiltersButton" mnemonicParsing="false" onAction="#closeFilterPanel" prefHeight="26.0" prefWidth="160.0" styleClass="closeButton" text="Закрыть" />
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="addGamePanel" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

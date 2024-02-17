@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbFunctions {
-    private String connectionUrl = "jdbc:postgresql://localhost:5432/Books";
+    private String connectionUrl = "jdbc:postgresql://localhost:5432/Games";
     private static final String DRIVER = "org.postgresql.Driver";
 
     public Connection connect_to_db(String username, String password) {

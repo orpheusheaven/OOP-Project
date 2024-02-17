@@ -1,5 +1,6 @@
 package kz.animesquad.gamedatabase;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,115 +24,92 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class GameController {
-    @FXML
-    private TextField titleField;
-    @FXML
-    private TextField developerField;
-    @FXML
-    private TextField publisherField;
-    @FXML
-    private TextField releaseYearField;
-    @FXML
-    private TextField genreField;
-    @FXML
-    private Button addButton;
-    @FXML
-    private TextArea outputArea;
+public class gameGuiController {
 
     @FXML
-    private TableView<GameFunctions> tGameList;
-    @FXML
-    private TableColumn<Game, String> tGameDeveloper;
+    private Button addGameButton;
 
     @FXML
-    private TableColumn<Game, String> tGameGenre;
+    private Button allGamesButton;
 
     @FXML
-    private TableColumn<Game, Integer> tGameID;
+    private Button deleteGameButton;
 
     @FXML
-    private TableColumn<Game, String> tGameName;
+    private Button exitButton;
 
     @FXML
-    private TableColumn<Game, String> tGamePublisher;
+    private Button filterPanelButton;
 
     @FXML
-    private TextField filterGenre;
+    private TableColumn<Game, String> tableDeveloper;
 
     @FXML
-    private TableColumn<Game, Integer> tGameYear;
+    private TableColumn<Game, String> tableGenre;
 
     @FXML
-    private TextField filterGameName;
+    private TableColumn<Game, Integer> tableID;
 
     @FXML
-    private TextField filterDev;
+    private TableColumn<Game, String> tablePublisher;
 
     @FXML
-    private TextField filterPublisher;
+    private TableColumn<Game, String> tableTitle;
 
     @FXML
-    private TextField filterYear;
+    private TableColumn<Game, Integer> tableYear;
 
     @FXML
-    private Button btnFilter;
+    private TableView<GameFunctions> tableDatabase;
 
     @FXML
-    private AnchorPane filterAnchorPane;
+    private AnchorPane allGamesPanel;
+    private Stage stage;
+
+    @FXML
+    private Button closeFiltersButton;
 
     @FXML
     private VBox filterPanel;
     @FXML
-    private void toggleFilters() {
-        if (stage != null) {
-            filterAnchorPane.setVisible(!filterAnchorPane.isVisible());
-
-            if (filterAnchorPane.isVisible()) {
-                stage.setWidth(860);
-                stage.setHeight(621);
-            } else {
-                stage.setWidth(mainVBox.getPrefWidth());
-                stage.setHeight(mainVBox.getPrefHeight());
-            }
-        }
-
+    void exit(ActionEvent event) {
+        Platform.exit();
     }
 
     @FXML
-    private VBox mainVBox;
+    void showAddGamePanel(ActionEvent event) {
+        allGamesPanel.setVisible(false);
+    }
 
-    private Stage stage;
+    @FXML
+    void showAllGamesPanel(ActionEvent event) {
+        allGamesPanel.setVisible(true);
+    }
+
+    @FXML
+    void showDeleteGamePanel(ActionEvent event) {
+        allGamesPanel.setVisible(false);
+    }
+
+    @FXML
+    void showFilterPanel(ActionEvent event) {
+        filterPanel.setVisible(true);
+    }
+
+
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    private ObservableList<GameFunctions> allGames = FXCollections.observableArrayList();
-
     @FXML
-    private void addGame() {
-        try {
+    void closeFilterPanel(ActionEvent event) {
+        filterPanel.setVisible(false);
 
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/kz/animesquad/gamedatabase/game-form.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 649, 327); // Здесь указывайте предпочтительные размеры
-            Stage stage = new Stage();
-            stage.setTitle("Добавить игру");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String title = titleField.getText();
-        String developer = developerField.getText();
-        // и так далее для остальных полей
-        outputArea.setText("Игра добавлена: " + title);
     }
-
+    private ObservableList<GameFunctions> allGames = FXCollections.observableArrayList();
     @FXML
-    public void checkConnection() { //Обновление таблицы
+    public void initialize() {
         ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
 
         DbFunctions db = new DbFunctions();
@@ -159,14 +137,14 @@ public class GameController {
 
             allGames.addAll(gameList);
 
-            tGameName.setCellValueFactory(new PropertyValueFactory<Game, String>("title"));
-            tGameID.setCellValueFactory(new PropertyValueFactory<Game, Integer>("id"));
-            tGameDeveloper.setCellValueFactory(new PropertyValueFactory<Game, String>("developer"));
-            tGameGenre.setCellValueFactory(new PropertyValueFactory<Game, String>("genre"));
-            tGamePublisher.setCellValueFactory(new PropertyValueFactory<Game, String>("publisher"));
-            tGameYear.setCellValueFactory(new PropertyValueFactory<Game, Integer>("releaseYear"));
+            tableTitle.setCellValueFactory(new PropertyValueFactory<Game, String>("title"));
+            tableID.setCellValueFactory(new PropertyValueFactory<Game, Integer>("id"));
+            tableDeveloper.setCellValueFactory(new PropertyValueFactory<Game, String>("developer"));
+            tableGenre.setCellValueFactory(new PropertyValueFactory<Game, String>("genre"));
+            tablePublisher.setCellValueFactory(new PropertyValueFactory<Game, String>("publisher"));
+            tableYear.setCellValueFactory(new PropertyValueFactory<Game, Integer>("releaseYear"));
 
-            tGameList.setItems(gameList);
+            tableDatabase.setItems(gameList);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -174,13 +152,19 @@ public class GameController {
     }
 
     @FXML
-    public void initialize() {
+    private TextField filterDev;
 
-    }
+    @FXML
+    private TextField filterGameName;
 
+    @FXML
+    private TextField filterGenre;
 
+    @FXML
+    private TextField filterPublisher;
 
-
+    @FXML
+    private TextField filterYear;
     @FXML
     public void filterList() {
         ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
@@ -250,20 +234,17 @@ public class GameController {
                         games.add(game);
                         gameList.add(game);
                     }
-                    tGameList.setItems(gameList);
+                    tableDatabase.setItems(gameList);
 
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
             } else {
-                tGameList.setItems(allGames);
+                tableDatabase.setItems(allGames);
             }
 
         } catch (NumberFormatException e) {
             System.out.println("Неверный формат года");
         }
-    }
-
-    public void addAllGame(Game game) {
     }
 }
