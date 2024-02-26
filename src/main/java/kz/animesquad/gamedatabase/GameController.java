@@ -40,7 +40,7 @@ public class GameController {
     private TextArea outputArea;
 
     @FXML
-    private TableView<GameFunctions> tGameList;
+    private TableView<Game> tGameList;
     @FXML
     private TableColumn<Game, String> tGameDeveloper;
 
@@ -107,35 +107,14 @@ public class GameController {
         this.stage = stage;
     }
 
-    private ObservableList<GameFunctions> allGames = FXCollections.observableArrayList();
-
-    @FXML
-    private void addGame() {
-        try {
-
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/kz/animesquad/gamedatabase/game-form.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 649, 327); // Здесь указывайте предпочтительные размеры
-            Stage stage = new Stage();
-            stage.setTitle("Добавить игру");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String title = titleField.getText();
-        String developer = developerField.getText();
-        // и так далее для остальных полей
-        outputArea.setText("Игра добавлена: " + title);
-    }
+    private ObservableList<Game> allGames = FXCollections.observableArrayList();
 
     @FXML
     public void checkConnection() { //Обновление таблицы
-        ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
+        ObservableList<Game> gameList = FXCollections.observableArrayList();
 
         DbFunctions db = new DbFunctions();
-        Connection conn = db.connect_to_db("postgres", "god1sdead");
+        Connection conn = db.connect_to_db();
         List<Game> games = new ArrayList<>();
 
         String sql = "SELECT * FROM games";
@@ -183,10 +162,10 @@ public class GameController {
 
     @FXML
     public void filterList() {
-        ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
+        ObservableList<Game> gameList = FXCollections.observableArrayList();
 
         DbFunctions db = new DbFunctions();
-        Connection conn = db.connect_to_db("postgres", "god1sdead");
+        Connection conn = db.connect_to_db();
         List<Game> games = new ArrayList<>();
 
         try {

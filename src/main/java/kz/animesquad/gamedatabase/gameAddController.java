@@ -63,7 +63,7 @@ public class gameAddController {
 
     private void addToDatabaseAndList(String title, String developer, String publisher, int releaseYear, String genre) {
         DbFunctions db = new DbFunctions();
-        Connection conn = db.connect_to_db("postgres", "god1sdead");
+        Connection conn = db.connect_to_db();
         Alert bly = new Alert(Alert.AlertType.INFORMATION);
         bly.setTitle("Игра успешно добавлено");
         String sql = "INSERT INTO games (title, developer, publisher, release_date, genre) VALUES (?, ?, ?, ?, ?)";

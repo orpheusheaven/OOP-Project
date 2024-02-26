@@ -60,7 +60,7 @@ public class gameGuiController {
     private TableColumn<Game, Integer> tableYear;
 
     @FXML
-    private TableView<GameFunctions> tableDatabase;
+    private TableView<Game> tableDatabase;
 
     @FXML
     private AnchorPane allGamesPanel;
@@ -71,6 +71,8 @@ public class gameGuiController {
 
     @FXML
     private VBox filterPanel;
+
+    private DbFunctions dbFunctions = new DbFunctions();
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
@@ -107,13 +109,13 @@ public class gameGuiController {
         filterPanel.setVisible(false);
 
     }
-    private ObservableList<GameFunctions> allGames = FXCollections.observableArrayList();
+    private ObservableList<Game> allGames = FXCollections.observableArrayList();
     @FXML
     public void initialize() {
-        ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
+        ObservableList<Game> gameList = FXCollections.observableArrayList();
 
         DbFunctions db = new DbFunctions();
-        Connection conn = db.connect_to_db("postgres", "god1sdead");
+        Connection conn = db.connect_to_db();
         List<Game> games = new ArrayList<>();
 
         String sql = "SELECT * FROM games";
@@ -167,10 +169,10 @@ public class gameGuiController {
     private TextField filterYear;
     @FXML
     public void filterList() {
-        ObservableList<GameFunctions> gameList = FXCollections.observableArrayList();
+        ObservableList<Game> gameList = FXCollections.observableArrayList();
 
         DbFunctions db = new DbFunctions();
-        Connection conn = db.connect_to_db("postgres", "god1sdead");
+        Connection conn = db.connect_to_db();
         List<Game> games = new ArrayList<>();
 
         try {
@@ -183,7 +185,8 @@ public class gameGuiController {
             String sql = "SELECT * FROM games WHERE 1 = 1";
 
             if (!searchGenre.isEmpty()) {
-                sql += " AND genre = ?";
+                sql += " AND genre LIKE ?";
+                searchGenre = "%" + searchGenre + "%";
             }
             if (!searchGameName.isEmpty()) {
                 sql += " AND title LIKE ?";
