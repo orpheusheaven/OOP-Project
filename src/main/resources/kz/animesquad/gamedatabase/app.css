@@ -9,7 +9,11 @@
 }
 
 .menuButton:hover {
+<<<<<<< HEAD
     -fx-background-color: #F0F8FF;
+=======
+    -fx-background-color: #F4F4FC; /* Синий цвет фона */
+>>>>>>> origin/main
 }
 
 .menuButton:pressed {
