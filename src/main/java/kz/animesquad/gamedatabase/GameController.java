@@ -158,7 +158,6 @@ public class GameController {
     }
 
     public void removeGameById(int gameId) {
-        // Поиск игры в списке по ID и удаление её
         for (Game game : allGames) {
             if (game.getId() == gameId) {
                 allGames.remove(game);

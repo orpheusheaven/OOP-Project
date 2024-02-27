@@ -107,18 +107,18 @@ public class gameGuiController {
     }
 
     @FXML
-    void showAddGamePanel(ActionEvent event) {
-        addGamePanel.setVisible(true);
-        allGamesPanel.setVisible(false);
-        deleteGamePanel.setVisible(false);
-    }
-
-    @FXML
     void showAllGamesPanel(ActionEvent event) {
         allGamesPanel.setVisible(true);
         deleteGamePanel.setVisible(false);
         addGamePanel.setVisible(false);
         initialize();
+    }
+
+    @FXML
+    void showAddGamePanel(ActionEvent event) {
+        addGamePanel.setVisible(true);
+        allGamesPanel.setVisible(false);
+        deleteGamePanel.setVisible(false);
     }
 
     @FXML
@@ -172,7 +172,9 @@ public class gameGuiController {
     @FXML
     public void initialize() {
         ObservableList<Game> gameList = FXCollections.observableArrayList();
-
+        allGamesPanel.setVisible(true);
+        deleteGamePanel.setVisible(false);
+        addGamePanel.setVisible(false);
         DbFunctions db = new DbFunctions();
         Connection conn = db.connect_to_db();
         List<Game> games = new ArrayList<>();
@@ -359,6 +361,31 @@ public class gameGuiController {
         }
     }
 
+    @FXML
+    void clearDatabase(ActionEvent event) {
+
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Подтверждение");
+        alert.setHeaderText("Вы уверены, что хотите очистить базу данных?");
+
+        ButtonType buttonTypeYes = new ButtonType("Да");
+        ButtonType buttonTypeNo = new ButtonType("Нет");
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeYes) {
+            DbFunctions db = new DbFunctions();
+            String sql = "TRUNCATE TABLE games RESTART IDENTITY";
+            try (Connection conn = db.connect_to_db();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
     @FXML
     void deleteGame(ActionEvent event) {
         String gameIdStr = gameIDToDelete.getText();

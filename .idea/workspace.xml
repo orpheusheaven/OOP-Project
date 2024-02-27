@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5111a37-56b4-44ca-8c47-27425586629d" name="Changes" comment="eep">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/DatabaseOperations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameDeleteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameGuiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/gamedatabase.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/ConnectionUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/DbFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/DbFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/GameFunctions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameAddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameAddController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameGuiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameGuiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/gamedatabase.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/gamedatabase.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +19,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -87,7 +78,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-8336523bb0d9-657b72ed" />
         <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>

@@ -10,6 +10,7 @@ import java.sql.Connection;
 
 public class MainApp extends Application {
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/kz/animesquad/gamedatabase/gamedatabase.fxml"));
