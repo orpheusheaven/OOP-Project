@@ -63,8 +63,9 @@ public class gameAddController {
 
     private void addToDatabaseAndList(String title, String developer, String publisher, int releaseYear, String genre) {
         DbFunctions db = new DbFunctions();
-        Connection conn = db.connect_to_db("postgres", "god1sdead");
-
+        Connection conn = db.connect_to_db();
+        Alert bly = new Alert(Alert.AlertType.INFORMATION);
+        bly.setTitle("Игра успешно добавлено");
         String sql = "INSERT INTO games (title, developer, publisher, release_date, genre) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, title);
@@ -89,6 +90,7 @@ public class gameAddController {
                 GameController controller = new GameController();
                 Game game = new Game(title, developer, publisher, releaseYear, genre);
                 controller.addAllGame(game);
+                Optional<ButtonType> infWindows = inf.showAndWait();
             } else {
                 Alert fail = new Alert(Alert.AlertType.CONFIRMATION);
                 fail.setTitle("Ошибка");
@@ -99,6 +101,8 @@ public class gameAddController {
                 fail.getButtonTypes().setAll(buttonTypeOk);
 
                 System.out.println("Ошибка при добавлений игры в базу данных.");
+                Optional<ButtonType> failWindows = fail.showAndWait();
+
             }
         } catch (SQLException e) {
             System.out.println("Ошибка при выполнении запроса: " + e.getMessage());

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="720.0" maxWidth="1000.0" minHeight="720.0" minWidth="1000.0" prefHeight="720.0" prefWidth="1000.0" style="-fx-background-color: #F4F4FC;" stylesheets="@app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kz.animesquad.gamedatabase.gameGuiController">
+   <left>
+      <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="282.0" style="-fx-background-color: #fff;" stylesheets="@app.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="142.0" fitWidth="137.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets top="-200.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@../../../../../../../../Downloads/icons8-steam-256.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="allGamesButton" mnemonicParsing="false" onAction="#showAllGamesPanel" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Все игры" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="addGameButton" mnemonicParsing="false" onAction="#showAddGamePanel" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Добавить игру" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteGameButton" mnemonicParsing="false" onAction="#showDeleteGamePanel" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Удалить игру" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+            <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exit" prefHeight="66.0" prefWidth="282.0" styleClass="menuButton" text="Выйти" textFill="#5a5a5a">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="allGamesPanel" prefHeight="720.0" prefWidth="718.0" style="-fx-background-color: #F4F4FC;" visible="false">
+               <children>
+                  <VBox prefHeight="720.0" prefWidth="718.0">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="718.0">
+                           <children>
+                              <Button fx:id="filterPanelButton" mnemonicParsing="false" onAction="#showFilterPanel" prefHeight="26.0" prefWidth="121.0" styleClass="classicButton" text="Фильтры">
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <TableView fx:id="tableDatabase" prefHeight="670.0" prefWidth="718.0" scaleShape="false" style="-fx-background-color: #F4F4FC;">
+                           <columns>
+                              <TableColumn fx:id="tableID" editable="false" prefWidth="31.999998450279236" text="ID" />
+                              <TableColumn fx:id="tableTitle" editable="false" prefWidth="171.20001983642578" text="Название" />
+                              <TableColumn fx:id="tableGenre" editable="false" prefWidth="107.199951171875" text="Жанр" />
+                              <TableColumn fx:id="tableYear" editable="false" prefWidth="75.199951171875" text="Год" />
+                              <TableColumn fx:id="tablePublisher" editable="false" prefWidth="174.39999389648438" text="Издатель" />
+                              <TableColumn fx:id="tableDeveloper" editable="false" prefWidth="164.800048828125" text="Разработчик" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="filterPanel" alignment="CENTER" layoutX="423.0" prefHeight="720.0" prefWidth="294.0" spacing="15.0" style="-fx-background-color: #fff;" visible="false">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="49.0" prefWidth="264.0">
+                           <children>
+                              <Label text="Фильтры">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <TextField fx:id="filterGameName" prefHeight="37.0" prefWidth="269.0" promptText="Название" styleClass="margin20">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="filterGenre" prefHeight="37.0" prefWidth="269.0" promptText="Жанр" />
+                        <TextField fx:id="filterYear" prefHeight="37.0" prefWidth="269.0" promptText="Год" />
+                        <TextField fx:id="filterDev" prefHeight="37.0" prefWidth="269.0" promptText="Разработчик" />
+                        <TextField fx:id="filterPublisher" prefHeight="37.0" prefWidth="269.0" promptText="Издатель" />
+                        <Button fx:id="filterListButton" mnemonicParsing="false" onAction="#filterList" prefHeight="26.0" prefWidth="160.0" styleClass="filterButton" text="Отфильтровать" />
+                        <Button fx:id="closeFiltersButton" mnemonicParsing="false" onAction="#closeFilterPanel" prefHeight="26.0" prefWidth="160.0" styleClass="closeButton" text="Закрыть" />
+                     </children>
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="deleteGamePanel" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <VBox layoutX="-720.0" prefHeight="720.0" prefWidth="719.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Удаление игры" textFill="#171a21">
+                                 <font>
+                                    <Font name="Segoe UI" size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="gameIDToDelete" alignment="CENTER" prefHeight="50.0" prefWidth="300.0" promptText="game ID" style="-fx-background-color: #ffffff; -fx-text-fill: #171a21; -fx-border-color: #1e2128; -fx-border-radius: 5px;">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="86.0" prefWidth="719.0">
+                           <children>
+                              <Button fx:id="btnDeleteGame" mnemonicParsing="false" onAction="#deleteGame" prefWidth="150.0" style="-fx-background-color: #ff4500; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 5px;" text="Удалить" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="addGamePanel" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="-238.0" prefHeight="720.0" prefWidth="240.0">
+                     <children>
+                        <HBox prefHeight="721.0" prefWidth="240.0" />
+                        <Button fx:id="btnAddGame" mnemonicParsing="false" onAction="#addGame" prefHeight="58.0" prefWidth="255.0" style="-fx-background-color: #1E90FF; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 5px;" text="Добавить игру" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="40.0" right="40.0" />
+                           </VBox.margin></Button>
+
+                     </children>
+                  </VBox>
+                  <VBox layoutX="-713.0" prefHeight="720.0" prefWidth="470.0">
+                     <children>
+                        <HBox prefHeight="39.0" prefWidth="470.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <Label prefHeight="45.0" prefWidth="313.0" text="Добавление игры в список" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </HBox>
+                        <Label prefHeight="25.0" prefWidth="149.0" text="Введите данные игр">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="AddGameName" alignment="CENTER" minHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="22.0" prefWidth="470.0" promptText="Name">
+                           <VBox.margin>
+                              <Insets left="50.0" top="40.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="AddGameGenre" alignment="CENTER" minHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="97.0" promptText="Genre">
+                           <VBox.margin>
+                              <Insets left="50.0" top="40.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="AddGameYear" alignment="CENTER" minHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="97.0" promptText="Year">
+                           <VBox.margin>
+                              <Insets left="50.0" top="40.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="AddGameDev" alignment="CENTER" minHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="97.0" promptText="Developer">
+                           <VBox.margin>
+                              <Insets left="50.0" top="40.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="AddGamePublisher" alignment="CENTER" minHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="97.0" promptText="Publisher">
+                           <VBox.margin>
+                              <Insets left="50.0" top="40.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

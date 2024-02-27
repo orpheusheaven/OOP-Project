@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5111a37-56b4-44ca-8c47-27425586629d" name="Changes" comment="eep">
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/DatabaseOperations.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameDeleteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameGuiController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/app.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/gamedatabase.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/ConnectionUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/DbFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/DbFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/GameFunctions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/MainApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameAddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kz/animesquad/gamedatabase/gameAddController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/game-form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/game-form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/kz/animesquad/gamedatabase/main.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +28,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -57,7 +69,7 @@
     &quot;app.teamhub.trackedBranches&quot;: &quot;-1g38uak/main&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Eldar/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/toxicity/orpheus heaven/2023/Java/OOP Project/GameDatabase/src/main/resources/kz/animesquad/gamedatabase&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -67,6 +79,9 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="kz.animesquad.gamedatabase" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\toxicity\orpheus heaven\2023\Java\OOP Project\GameDatabase\src\main\resources\kz\animesquad\gamedatabase" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -110,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707708624462</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="eep">
+      <option name="closed" value="true" />
+      <created>1708190934283</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1708190934283</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

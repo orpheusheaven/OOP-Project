@@ -1,6 +1,6 @@
 package kz.animesquad.gamedatabase;
 
-public class Game extends GameFunctions {
+public class Game {
     private int id;
     private String title;
     private String developer;
